@@ -257,13 +257,8 @@
         NSData *imageData = UIImagePNGRepresentation(self.attachmentImage.image);
         if (imageData) {
             ownMessage.imageAttachment = self.attachmentImage.image;
-
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSString *encodedImage = [imageData base64EncodedString];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    ownMessage.imageHash = encodedImage;
-                });
-            });
+			// you MORON you dont async it, YOU DO NOT ASYNC IT
+			ownMessage.imageHash = [imageData base64EncodedStringWithOptions:0];
         }
     }
     
